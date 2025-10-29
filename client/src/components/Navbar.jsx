@@ -23,7 +23,7 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
-    const { openSignIn } = useClerk()
+    const { openSignIn, signOut } = useClerk()
     const { user, setShowHotelReg, isOwner, navigate } = useAppContext()
 
     useEffect(() => {
@@ -71,6 +71,7 @@ const Navbar = () => {
                     <UserButton >
                         <UserButton.MenuItems>
                             <UserButton.Action label="My Bookings" labelIcon={<BookIcon />} onClick={() => navigate('/my-bookings')} />
+                            <UserButton.Action label="Sign out" onClick={() => signOut()} />
                         </UserButton.MenuItems>
                     </UserButton>
                 ) : (
@@ -102,6 +103,9 @@ const Navbar = () => {
                         <NavLink to="/my-bookings" onClick={() => setIsMenuOpen(false)}>
                             My Bookings
                         </NavLink>
+                        <button className="w-full text-left px-4 py-2 border rounded" onClick={() => { setIsMenuOpen(false); signOut(); }}>
+                            Sign Out
+                        </button>
                         <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all" onClick={() => isOwner ? navigate('/owner') : setShowHotelReg(true)}>
                             {isOwner ? 'Dashboard' : 'List Your Hotel'}
                         </button>
